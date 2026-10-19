@@ -1,0 +1,17 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# Dependency build scripts are blocked by default. These two are optional native helpers
+# (file watching and a resolver fast path) that the tests and the build do not need.
+allowBuilds:
+  '@parcel/watcher': false
+  unrs-resolver: false
+
+# @nestjs/platform-fastify pulls its own Fastify. Two copies make the plugin types
+# (helmet, cors) disagree, so the whole workspace uses the one pinned in apps/api.
+overrides:
+  fastify: 5.12.7
+  # light-my-request (Fastify's inject, used only in tests) moved to cookie 2, which is
+  # ESM-only and cannot be loaded by Jest's CommonJS runtime. cookie 1.1.1 is what it used before.
+  cookie: 1.1.1
