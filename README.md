@@ -2,7 +2,7 @@
 
 Real-time queue management for hospitals and clinics in India. Modular monolith: NestJS on Fastify, PostgreSQL (source of truth), Redis (infrastructure only), Socket.IO (delivery only).
 
-Status: **Phase 2 (database)** on top of the Phase 1 foundation. No business logic yet. Schema notes: `docs/DATABASE.md`. See `docs/READINESS.md` for what is proven and what is not.
+Status: **Phase 3 (auth)** on top of the database (Phase 2) and foundation (Phase 1). No queue or payment logic yet. Schema: `docs/DATABASE.md`. Auth: `docs/AUTH.md`. See `docs/READINESS.md` for what is proven and what is not.
 
 ## Prerequisites
 Node 22.12+ (built with 22.22.2), pnpm 12.10.1, PostgreSQL 16 and Redis 7 (or Docker for `docker-compose.yml`, NOT VERIFIED).
@@ -15,6 +15,8 @@ export DATABASE_URL=postgres://qs_admin:qs_admin_dev_pw@127.0.0.1:55432/qs_dev
 pnpm db:migrate
 REDIS_URL=redis://127.0.0.1:56379 REDIS_USERNAME=ops REDIS_PASSWORD=devpass-ops pnpm --filter @qs/api start
 ```
+Authentication: `AUTH_PROVIDER=fake` (development and test only, refused in staging and production) or `supabase` with `AUTH_JWT_ISSUER` and `AUTH_JWKS_URL` or `AUTH_JWT_SECRET`. The API should connect as an `app_api` login role, never the database owner.
+
 `APP_ROLE` is `api`, `realtime`, `worker` or `all` (default). `GET /health` makes no dependency calls. `GET /ready` checks the database, pending migrations and Redis (Redis is required only for `realtime`).
 
 ## Scripts
@@ -34,6 +36,7 @@ REDIS_URL=redis://127.0.0.1:56379 REDIS_USERNAME=ops REDIS_PASSWORD=devpass-ops 
 - `apps/web` is a placeholder. Next.js arrives in Phase 8.
 - OpenTelemetry is a skeleton only. No exporter is wired.
 - Rate limiting is deferred (planned with a Redis store).
+- `jose` is pinned to 5.10.0 because 6.x is ESM-only and Jest cannot load it.
 - pnpm overrides: `fastify` (one copy, so plugin types agree) and `cookie` 1.1.1 (Jest cannot load the ESM-only 2.x that Fastify's test `inject` now needs).
 - Sentry 11 has no `sendDefaultPii`. Every `dataCollection` category is switched off instead.
 - A no-transaction migration must be a single statement (a multi-statement query runs in an implicit transaction, which `CREATE INDEX CONCURRENTLY` rejects).

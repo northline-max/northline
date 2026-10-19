@@ -227,6 +227,9 @@ importers:
       ioredis:
         specifier: 6.0.0
         version: 6.0.0(supports-color@8.1.1)
+      jose:
+        specifier: 5.10.0
+        version: 5.10.0
       kysely:
         specifier: 0.28.17
         version: 0.28.17
@@ -1892,6 +1895,9 @@ packages:
     peerDependenciesMeta:
       node-notifier:
         optional: true
+
+  jose@5.10.0:
+    resolution: {integrity: sha512-s+3Al/p9g32Iq+oqXxkW//7jk2Vig6FF1CFqzVXoTUXt2qz89YWbL+OwS17NFYEvxC35n0FKeGO2LGYSxeM2Gg==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -4441,6 +4447,8 @@ snapshots:
       - esbuild-register
       - supports-color
       - ts-node
+
+  jose@5.10.0: {}
 
   js-tokens@4.0.0: {}
 
