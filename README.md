@@ -2,7 +2,7 @@
 
 Real-time queue management for hospitals and clinics in India. Modular monolith: NestJS on Fastify, PostgreSQL (source of truth), Redis (infrastructure only), Socket.IO (delivery only).
 
-Status: **Phase 1 (foundation)**. No business logic yet. See `docs/READINESS.md` for what is proven and what is not.
+Status: **Phase 2 (database)** on top of the Phase 1 foundation. No business logic yet. Schema notes: `docs/DATABASE.md`. See `docs/READINESS.md` for what is proven and what is not.
 
 ## Prerequisites
 Node 22.12+ (built with 22.22.2), pnpm 12.10.1, PostgreSQL 16 and Redis 7 (or Docker for `docker-compose.yml`, NOT VERIFIED).
